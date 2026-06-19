@@ -2,249 +2,220 @@ import streamlit as st
 import random
 
 st.set_page_config(
-    page_title="AI Mock Interview Portal",
-    page_icon="🚀",
-    layout="wide"
+page_title="Elite Interview Prep",
+page_icon="🏆",
+layout="wide"
 )
 
-# ================= CSS =================
-
 st.markdown("""
+
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Poppins', sans-serif;
-}
-
 .stApp{
-    background: linear-gradient(
-        135deg,
-        #050816 0%,
-        #0a0f29 40%,
-        #130d35 100%
-    );
+    background:#0F0F0F;
 }
 
-.block-container{
-    padding-top:2rem;
+h1,h2,h3{
+    color:#F5D76E;
 }
 
-/* HERO */
-
-.hero{
-    text-align:center;
-    padding:30px;
+[data-testid="stSidebar"]{
+    background:#121212;
 }
-
-.gradient-title{
-    font-size:64px;
-    font-weight:800;
-    background: linear-gradient(
-        90deg,
-        #00d4ff,
-        #7c3aed,
-        #ff00aa,
-        #ff8c00
-    );
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.subtitle{
-    color:#d1d5db;
-    font-size:20px;
-    margin-top:10px;
-}
-
-/* GLASS CARD */
-
-.card{
-    background: rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(12px);
-    border-radius:20px;
-    padding:25px;
-    margin-top:15px;
-    box-shadow:
-        0 0 25px rgba(124,58,237,0.3);
-}
-
-/* QUESTION BOX */
-
-.question-box{
-    background: rgba(0,212,255,0.08);
-    border-left:5px solid #00d4ff;
-    padding:20px;
-    border-radius:12px;
-    color:white;
-    font-size:18px;
-}
-
-/* BUTTON */
 
 .stButton>button{
     width:100%;
     height:55px;
+    border-radius:12px;
     border:none;
+    background:linear-gradient(135deg,#D4AF37,#F5D76E);
+    color:black;
+    font-weight:bold;
+}
+
+.card{
+    background:#181818;
+    padding:20px;
     border-radius:15px;
-    color:white;
-    font-size:18px;
-    font-weight:700;
-    background:linear-gradient(
-        90deg,
-        #00d4ff,
-        #7c3aed,
-        #ff00aa
-    );
-    box-shadow:0 0 20px rgba(255,0,170,.5);
+    border:1px solid #D4AF37;
 }
 
-.stButton>button:hover{
-    transform:scale(1.02);
+.gold{
+    color:#D4AF37;
 }
 
-/* SIDEBAR */
-
-section[data-testid="stSidebar"]{
-    background:#090b1a;
-}
-
-.metric-card{
+.big{
+    font-size:60px;
+    font-weight:800;
     text-align:center;
-    padding:15px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.05);
+}
+
+.sub{
+    text-align:center;
+    color:#cccccc;
+    font-size:20px;
 }
 
 </style>
+
 """, unsafe_allow_html=True)
 
-# ================= DATA =================
+st.markdown(
+"""
 
+<div class='big'>
+Elite Interview Prep 🏆
+</div>
+
+<div class='sub'>
+Luxury AI-Powered Mock Interview Experience
+</div>
+""",
+unsafe_allow_html=True
+)
+
+tab1, tab2, tab3 = st.tabs(
+[
+"🎤 Interview",
+"📈 Analytics",
+"🏅 Leaderboard"
+]
+)
+
+with tab1:
+
+```
 questions = {
-    "Software Engineer": [
-        "Explain Object Oriented Programming.",
+    "Software Engineer":[
+        "What is OOP?",
         "Difference between Stack and Queue?",
-        "What is a REST API?",
-        "Explain Time Complexity.",
-        "What are Design Patterns?"
+        "What is REST API?"
     ],
-    "Data Analyst": [
-        "What is Data Cleaning?",
-        "Difference between Mean and Median?",
-        "Explain SQL JOIN.",
-        "What is Data Visualization?",
-        "What is a KPI?"
-    ],
-    "AI/ML Engineer": [
+
+    "AI/ML Engineer":[
         "What is Overfitting?",
         "Explain Gradient Descent.",
-        "What is a Neural Network?",
-        "Difference between AI and ML?",
         "What is Supervised Learning?"
+    ],
+
+    "Data Analyst":[
+        "Explain SQL JOIN.",
+        "What is KPI?",
+        "What is Data Cleaning?"
     ]
 }
 
-# ================= HERO =================
-
-st.markdown("""
-<div class="hero">
-    <div class="gradient-title">
-        AI Mock Interview Portal 🚀
-    </div>
-
-    <div class="subtitle">
-        Practice. Improve. Get Hired.
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ================= SIDEBAR =================
-
-st.sidebar.title("📊 Performance Dashboard")
-
-st.sidebar.metric(
-    "Interviews Taken",
-    random.randint(10,100)
+role = st.selectbox(
+    "Select Role",
+    list(questions.keys())
 )
 
-st.sidebar.metric(
-    "Average Score",
-    f"{random.randint(70,95)}%"
+difficulty = st.selectbox(
+    "Difficulty",
+    ["Easy","Medium","Hard"]
 )
-
-st.sidebar.metric(
-    "Confidence",
-    f"{random.randint(65,99)}%"
-)
-
-st.sidebar.success("Ready for Placement Season 🚀")
-
-# ================= CONTROLS =================
-
-col1, col2 = st.columns(2)
-
-with col1:
-    role = st.selectbox(
-        "🎯 Select Role",
-        [
-            "Software Engineer",
-            "Data Analyst",
-            "AI/ML Engineer"
-        ]
-    )
-
-with col2:
-    difficulty = st.selectbox(
-        "⚡ Difficulty",
-        [
-            "Easy",
-            "Medium",
-            "Hard"
-        ]
-    )
-
-# ================= SESSION =================
 
 if "question" not in st.session_state:
     st.session_state.question = ""
 
-# ================= GENERATE =================
-
-if st.button("🎤 Generate Interview Question"):
+if st.button("Generate Question"):
     st.session_state.question = random.choice(
         questions[role]
     )
 
-# ================= QUESTION =================
-
 if st.session_state.question:
 
-    st.markdown("""
-    <div class="card">
-    """, unsafe_allow_html=True)
-
-    st.markdown(
-        f"""
-        <div class="question-box">
-        {st.session_state.question}
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.info(
+        st.session_state.question
     )
 
     answer = st.text_area(
-        "✍️ Your Answer",
-        height=220
+        "Your Answer",
+        height=200
     )
 
-    if st.button("🚀 Submit Answer"):
+    if st.button("Submit Answer"):
 
-        score = random.randint(65,98)
+        keywords = {
 
-        st.markdown("### 🎯 Interview Result")
+            "What is OOP?":[
+                "class",
+                "object",
+                "inheritance",
+                "polymorphism",
+                "encapsulation"
+            ],
+
+            "Difference between Stack and Queue?":[
+                "stack",
+                "queue",
+                "lifo",
+                "fifo"
+            ],
+
+            "What is REST API?":[
+                "api",
+                "http",
+                "request",
+                "response",
+                "server"
+            ],
+
+            "What is Overfitting?":[
+                "training",
+                "test",
+                "model",
+                "data"
+            ],
+
+            "Explain Gradient Descent.":[
+                "optimization",
+                "loss",
+                "minimum",
+                "gradient"
+            ],
+
+            "What is Supervised Learning?":[
+                "label",
+                "training",
+                "prediction"
+            ],
+
+            "Explain SQL JOIN.":[
+                "table",
+                "join",
+                "row",
+                "column"
+            ],
+
+            "What is KPI?":[
+                "performance",
+                "indicator",
+                "business"
+            ],
+
+            "What is Data Cleaning?":[
+                "missing",
+                "duplicate",
+                "data"
+            ]
+        }
+
+        answer_lower = answer.lower()
+
+        current = keywords[
+            st.session_state.question
+        ]
+
+        matches = 0
+
+        for k in current:
+            if k in answer_lower:
+                matches += 1
+
+        score = int(
+            matches/len(current)*100
+        )
 
         st.progress(score/100)
 
@@ -253,42 +224,97 @@ if st.session_state.question:
             f"{score}/100"
         )
 
-        if score >= 90:
-            st.balloons()
-            st.success("Outstanding Performance!")
-        elif score >= 75:
-            st.info("Good Answer. Add more technical depth.")
+        if score >= 80:
+            st.success(
+                "Excellent Answer 🚀"
+            )
+
+        elif score >= 50:
+            st.warning(
+                "Good but can improve."
+            )
+
         else:
-            st.warning("Needs Improvement.")
+            st.error(
+                "Needs Improvement."
+            )
 
-        st.markdown("### 🤖 AI Feedback")
+        missing = [
+            x for x in current
+            if x not in answer_lower
+        ]
 
-        st.success("✅ Strong Communication")
-
-        st.success("✅ Clear Structure")
-
-        st.warning("⚠ Add Real-World Examples")
-
-        st.warning("⚠ Improve Technical Details")
-
-        st.markdown("### 📈 Hiring Probability")
-
-        hire = min(100, score + random.randint(0,10))
-
-        st.progress(hire/100)
-
-        st.metric(
-            "Chance of Selection",
-            f"{hire}%"
+        st.warning(
+            "Missing Concepts: "
+            + ", ".join(missing)
         )
+```
 
-    st.markdown("</div>", unsafe_allow_html=True)
 
-# ================= FOOTER =================
+with tab2:
+
+```
+st.subheader("Performance Dashboard")
+
+col1,col2,col3 = st.columns(3)
+
+with col1:
+    st.metric(
+        "Interviews Taken",
+        random.randint(5,50)
+    )
+
+with col2:
+    st.metric(
+        "Average Score",
+        f"{random.randint(70,95)}%"
+    )
+
+with col3:
+    st.metric(
+        "Confidence",
+        f"{random.randint(60,99)}%"
+    )
+
+st.progress(
+    random.randint(50,95)/100
+)
+
+st.success(
+    "Placement Readiness Score Generated"
+)
+```
+
+with tab3:
+
+```
+st.subheader("Leaderboard")
+
+leaderboard = [
+    ("Rahul",95),
+    ("Priya",91),
+    ("Aman",88),
+    ("Sneha",85),
+    ("You",80)
+]
+
+for name,score in leaderboard:
+
+    st.markdown(
+        f"""
+        🏅 {name} — {score}/100
+        """
+    )
+```
 
 st.markdown("---")
 
 st.markdown(
-    "<center><h4 style='color:#9ca3af'>Built with ❤️ using Streamlit</h4></center>",
-    unsafe_allow_html=True
+"""
+
+<center>
+Built by Yatharth Saxena 🚀
+</center>
+""",
+unsafe_allow_html=True
 )
